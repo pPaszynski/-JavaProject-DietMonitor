@@ -21,7 +21,7 @@ public class MainWindow extends AppCompatActivity {
         button_find_produkt = (Button) findViewById(R.id.button_find_produkt);
     }
 
-    public void searchProdukt(View view) {
+    public void searchProduct(View view) {
         Intent intent = new Intent(this, SearchProductWindow.class);
 
         startActivity(intent);
