@@ -120,4 +120,18 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         return selectedFoodList;
     }
+
+    public void fillFoodModel(FoodModel food, String name){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        qb.setTables(TABLE_NAME);
+        Cursor cursor = qb.query(db, allColumnsNames, name, null, null, null, null);
+        food.setName(cursor.getString(nameIndex));
+        food.setPortion(cursor.getInt(portionIndex));
+        food.setEnergy(cursor.getInt(energyIndex));
+        food.setCarbs(cursor.getInt(carbsIndex));
+        food.setProtein(cursor.getInt(proteinIndex));
+        food.setFat(cursor.getInt(fatIndex));
+    }
 }

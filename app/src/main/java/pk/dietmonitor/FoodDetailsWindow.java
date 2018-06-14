@@ -13,6 +13,7 @@ public class FoodDetailsWindow extends AppCompatActivity {
     TextView energy_value, carbs_value, protein_value, fat_value, check_text;
     EditText mass_value;
     Button food_item_add;
+    String product_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,9 @@ public class FoodDetailsWindow extends AppCompatActivity {
 
     public void addChosenProduct(View view) {
 
-        check_text.setText(mass_value.getText());
+        Float energy = getIntent().getFloatExtra("energy_value");
+        float a = Float.valueOf(mass_value.getText().toString());
+        FoodModel chosen_food = new FoodModel(4);
 
     }
 }

@@ -108,7 +108,7 @@ public class SearchProductWindow extends AppCompatActivity
         intent.putExtra("carbs_value", String.valueOf(clickedFood.getCarbs()));
         intent.putExtra("protein_value", String.valueOf(clickedFood.getProtein()));
         intent.putExtra("fat_value", String.valueOf(clickedFood.getFat()));
-
+        clickedFood.getName();
         startActivity(intent);
     }
 }

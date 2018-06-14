@@ -2,10 +2,17 @@ package pk.dietmonitor;
 
 public class FoodModel {
 
-    private String name;
-    private int portion, energy, carbs, protein, fat;
+    public FoodModel() {
+        this.mass = 1;
+    }
 
-    public FoodModel() {}
+    public FoodModel(float m) {
+        this.mass = m / 100;
+    }
+
+    private String name;
+    private float mass, portion, energy, carbs, protein, fat;
+
 
     public String getName() {
         return name;
@@ -15,7 +22,7 @@ public class FoodModel {
         this.name = name;
     }
 
-    public int getPortion() {
+    public float getPortion() {
         return portion;
     }
 
@@ -23,35 +30,35 @@ public class FoodModel {
         this.portion = portion;
     }
 
-    public int getEnergy() {
+    public float getEnergy() {
         return energy;
     }
 
     public void setEnergy(int energy) {
-        this.energy = energy;
+        this.energy = energy * mass;
     }
 
-    public int getCarbs() {
+    public float getCarbs() {
         return carbs;
     }
 
     public void setCarbs(int carbs) {
-        this.carbs = carbs;
+        this.carbs = carbs * mass;
     }
 
-    public int getProtein() {
+    public float getProtein() {
         return protein;
     }
 
     public void setProtein(int protein) {
-        this.protein = protein;
+        this.protein = protein * mass;
     }
 
-    public int getFat() {
+    public float getFat() {
         return fat;
     }
 
     public void setFat(int fat) {
-        this.fat = fat;
+        this.fat = fat * mass;
     }
 }
