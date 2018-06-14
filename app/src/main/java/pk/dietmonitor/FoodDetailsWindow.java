@@ -58,9 +58,8 @@ public class FoodDetailsWindow extends AppCompatActivity {
 
     public void addChosenProduct(View view) {
 
-        Float energy = getIntent().getFloatExtra("energy_value");
         float a = Float.valueOf(mass_value.getText().toString());
         FoodModel chosen_food = new FoodModel(4);
-
+        check_text.setText((int) chosen_food.getEnergy());
     }
 }
