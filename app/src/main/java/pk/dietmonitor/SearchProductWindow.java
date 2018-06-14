@@ -104,6 +104,7 @@ public class SearchProductWindow extends AppCompatActivity
         FoodModel clickedFood = adapter.getFoodList().get(clickedItemIndex);
 
         intent.putExtra("name", clickedFood.getName());
+        intent.putExtra("portion_value", String.valueOf(clickedFood.getPortion()));
         intent.putExtra("energy_value", String.valueOf(clickedFood.getEnergy()));
         intent.putExtra("carbs_value", String.valueOf(clickedFood.getCarbs()));
         intent.putExtra("protein_value", String.valueOf(clickedFood.getProtein()));

@@ -1,6 +1,9 @@
 package pk.dietmonitor;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,8 +39,10 @@ public class FoodDetailsWindow extends AppCompatActivity {
     }
 
     public void getIncomingIntent() {
-        if(getIntent().hasExtra("energy_value") && getIntent().hasExtra("carbs_value") &&
-                getIntent().hasExtra("protein_value") && getIntent().hasExtra("fat_value")) {
+        if(getIntent().hasExtra("energy_value") &&
+                getIntent().hasExtra("carbs_value") &&
+                getIntent().hasExtra("protein_value") &&
+                getIntent().hasExtra("fat_value")) {
 
             String energy = getIntent().getStringExtra("energy_value");
             String carbs = getIntent().getStringExtra("carbs_value");
@@ -58,8 +63,27 @@ public class FoodDetailsWindow extends AppCompatActivity {
 
     public void addChosenProduct(View view) {
 
-        float a = Float.valueOf(mass_value.getText().toString());
-        FoodModel chosen_food = new FoodModel(4);
-        check_text.setText((int) chosen_food.getEnergy());
+        float a = 0;
+        try{
+            a = Float.valueOf(mass_value.getText().toString());
+        }catch(Exception e){
+            e.getMessage();
+        }
+        String product_name = getIntent().getStringExtra("name");
+
+        FoodModel chosen_food = new FoodModel(a);
+        fillFoodModel(chosen_food, product_name);
+        check_text.setText(String.valueOf(chosen_food.getPortion()));
+    }
+
+    public void fillFoodModel(FoodModel food, String name){
+
+        food.setName(getIntent().getStringExtra("name"));
+        food.setPortion(Float.valueOf(getIntent().getStringExtra("portion_value")));
+        food.setEnergy(Float.valueOf(getIntent().getStringExtra("energy_value")));
+        food.setCarbs(Float.valueOf(getIntent().getStringExtra("carbs_value")));
+        food.setProtein(Float.valueOf(getIntent().getStringExtra("protein_value")));
+        food.setFat(Float.valueOf(getIntent().getStringExtra("fat_value")));
     }
 }
+
