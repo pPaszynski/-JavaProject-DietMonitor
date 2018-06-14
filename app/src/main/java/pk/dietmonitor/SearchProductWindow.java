@@ -99,7 +99,7 @@ public class SearchProductWindow extends AppCompatActivity
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        Intent intent = new Intent(this, FoodDetails.class);
+        Intent intent = new Intent(this, FoodDetailsWindow.class);
 
         FoodModel clickedFood = adapter.getFoodList().get(clickedItemIndex);
 

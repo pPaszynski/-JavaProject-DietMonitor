@@ -3,12 +3,15 @@ package pk.dietmonitor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class FoodDetails extends AppCompatActivity {
+public class FoodDetailsWindow extends AppCompatActivity {
 
-    TextView energy_value, carbs_value, protein_value, fat_value;
+    TextView energy_value, carbs_value, protein_value, fat_value, check_text;
+    EditText mass_value;
     Button food_item_add;
 
     @Override
@@ -20,6 +23,8 @@ public class FoodDetails extends AppCompatActivity {
         carbs_value = (TextView) findViewById(R.id.food_item_carbs_value);
         protein_value = (TextView) findViewById(R.id.food_item_protein_value);
         fat_value = (TextView) findViewById(R.id.food_item_fat_value);
+        check_text = (TextView) findViewById(R.id.textView3);
+        mass_value = (EditText) findViewById(R.id.food_item_mass_value);
 
         Intent intent = getIntent();
         getIncomingIntent();
@@ -47,5 +52,12 @@ public class FoodDetails extends AppCompatActivity {
         carbs_value.setText(carbs.concat("g"));
         protein_value.setText(protein.concat("g"));
         fat_value.setText(fat.concat("g"));
+
+    }
+
+    public void addChosenProduct(View view) {
+
+        check_text.setText(mass_value.getText());
+
     }
 }
