@@ -1,6 +1,4 @@
 package pk.dietmonitor.database;
 
-public class Food {
-
-
+public class DBHelper {
 }
