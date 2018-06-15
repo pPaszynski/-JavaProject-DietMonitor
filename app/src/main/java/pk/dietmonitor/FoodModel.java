@@ -11,7 +11,7 @@ public class FoodModel{
     }
 
     public FoodModel(float m) {
-        this.mass = m / 100;
+        this.mass = m / 100.0f;
     }
 
     private String name;

@@ -1,4 +1,4 @@
-package pk.dietmonitor.database;
+package pk.dietmonitor.database.model;
 
 public class Food {
 

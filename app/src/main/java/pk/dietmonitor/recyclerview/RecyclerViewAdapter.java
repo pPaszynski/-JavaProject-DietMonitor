@@ -13,6 +13,7 @@ import java.util.List;
 
 import pk.dietmonitor.FoodModel;
 import pk.dietmonitor.R;
+import pk.dietmonitor.database.model.Food;
 
 /**
  * Klasa pomocnicza do zarzadzania RecyclerView
@@ -21,14 +22,14 @@ import pk.dietmonitor.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private Context context;
-    private List<FoodModel> foodList = new ArrayList<>();
+    private List<Food> foodList = new ArrayList<>();
     private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
         void onListItemClick(int clickedItem);
     }
 
-    public RecyclerViewAdapter(Context context, List<FoodModel> foodList, ListItemClickListener listener) {
+    public RecyclerViewAdapter(Context context, List<Food> foodList, ListItemClickListener listener) {
         if(foodList != null) {
             this.context = context;
             this.foodList = foodList;
@@ -57,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return foodList.size();
     }
 
-    public List<FoodModel> getFoodList() {
+    public List<Food> getFoodList() {
         return foodList;
     }
 
@@ -76,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void bindData(FoodModel food) {
+        public void bindData(Food food) {
             foodName.setText(food.getName());
             foodPortion.setText(String.valueOf(food.getPortion()).concat("g"));
             foodEnergy.setText(String.valueOf(food.getEnergy()).concat("kcal"));

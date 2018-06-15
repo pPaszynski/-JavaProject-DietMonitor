@@ -11,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import pk.dietmonitor.database.DBHelper;
+import pk.dietmonitor.database.model.FoodConsumed;
+
 public class FoodDetailsWindow extends AppCompatActivity {
 
     TextView energy_value, carbs_value, protein_value, fat_value, check_text;
     EditText mass_value;
     Button food_item_add;
     String product_name;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class FoodDetailsWindow extends AppCompatActivity {
         fat_value = (TextView) findViewById(R.id.food_item_fat_value);
         check_text = (TextView) findViewById(R.id.textView3);
         mass_value = (EditText) findViewById(R.id.food_item_mass_value);
+        dbHelper = DBHelper.getInstance(this);
 
         Intent intent = getIntent();
         getIncomingIntent();
@@ -63,17 +68,21 @@ public class FoodDetailsWindow extends AppCompatActivity {
 
     public void addChosenProduct(View view) {
 
-        float a = 0;
+        float mass = 0;
         try{
-            a = Float.valueOf(mass_value.getText().toString());
+            mass = Float.valueOf(mass_value.getText().toString());
         }catch(Exception e){
             e.getMessage();
         }
         String product_name = getIntent().getStringExtra("name");
 
-        FoodModel chosen_food = new FoodModel(a);
-        fillFoodModel(chosen_food, product_name);
-        check_text.setText(String.valueOf(chosen_food.getPortion()));
+        FoodConsumed foodConsumed = new FoodConsumed();
+        foodConsumed.setFoodNameFK(product_name);
+        foodConsumed.setMass(mass);
+        dbHelper.insertFoodConsumed(foodConsumed);
+//        FoodModel chosen_food = new FoodModel(mass);
+//        fillFoodModel(chosen_food, product_name);
+        check_text.setText(String.valueOf(getIntent().getStringExtra("energy_value")));
     }
 
     public void fillFoodModel(FoodModel food, String name){
