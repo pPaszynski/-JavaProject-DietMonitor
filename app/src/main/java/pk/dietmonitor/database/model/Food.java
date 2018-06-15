@@ -9,6 +9,17 @@ public class Food {
     private Float protein;
     private Float fat;
 
+    public Food() {}
+
+    public Food(String name, float portion, float energy, float carbs, float protein, float fat) {
+        this.name = name;
+        this.portion = portion;
+        this.energy = energy;
+        this.carbs = carbs;
+        this.protein = protein;
+        this.fat = fat;
+    }
+
     public String getName() {
         return name;
     }
