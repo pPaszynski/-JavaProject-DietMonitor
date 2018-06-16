@@ -64,6 +64,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return foodNameList;
     }
 
+    public List<Food> getFoodByName(String name) {
+        return foodDAO.getFoodByName(name);
+    }
+
     public void insertFoodConsumed(FoodConsumed foodConsumed) {
         foodConsumedDAO.insert(foodConsumed);
     }

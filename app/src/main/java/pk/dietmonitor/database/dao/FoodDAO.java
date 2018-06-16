@@ -10,5 +10,5 @@ public interface FoodDAO {
     String getCreateTableSQL();
     String getTableName();
     List<Food> getAll();
-
+    List<Food> getFoodByName(String name);
 }

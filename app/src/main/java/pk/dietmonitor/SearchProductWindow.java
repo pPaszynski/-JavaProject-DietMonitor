@@ -95,8 +95,8 @@ public class SearchProductWindow extends AppCompatActivity
     }
 
     private void startSearch(String text) {
-//        adapter = new RecyclerViewAdapter(this, dbHelper.getFoodByName(text), this);
-//        recyclerView.setAdapter(adapter);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getFoodByName(text), this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -112,7 +112,6 @@ public class SearchProductWindow extends AppCompatActivity
         intent.putExtra("protein_value", String.valueOf(clickedFood.getProtein()));
         intent.putExtra("fat_value", String.valueOf(clickedFood.getFat()));
 
-        clickedFood.getName();
         startActivity(intent);
     }
 }

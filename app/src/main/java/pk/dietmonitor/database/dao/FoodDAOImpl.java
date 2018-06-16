@@ -74,4 +74,34 @@ public class FoodDAOImpl implements FoodDAO {
         }
         return foodList;
     }
+
+    @Override
+    public List<Food> getFoodByName(String name) {
+        List<Food> foodList = new ArrayList<>();
+
+        String[] selectionArgs = {"%" + name + "%"};
+        Cursor cursor = sqLiteDatabase.query(TABLE_NAME, COLUMN_NAMES, "NAME LIKE ?", selectionArgs, null, null, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                Food food = new Food();
+                int nameColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[0]);
+                int portionColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[1]);
+                int energyColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[2]);
+                int carbsColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[3]);
+                int proteinColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[4]);
+                int fatColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[5]);
+                food.setName(cursor.getString(nameColumnIndex));
+                food.setPortion(cursor.getFloat(portionColumnIndex));
+                food.setEnergy(cursor.getFloat(energyColumnIndex));
+                food.setCarbs(cursor.getFloat(carbsColumnIndex));
+                food.setProtein(cursor.getFloat(proteinColumnIndex));
+                food.setFat(cursor.getFloat(fatColumnIndex));
+                foodList.add(food);
+            } while(cursor.moveToNext());
+        }
+
+        return  foodList;
+
+    }
 }
