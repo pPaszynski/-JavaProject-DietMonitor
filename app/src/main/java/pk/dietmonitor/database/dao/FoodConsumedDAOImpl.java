@@ -12,14 +12,14 @@ import pk.dietmonitor.database.model.FoodConsumed;
 
 public class FoodConsumedDAOImpl implements FoodConsumedDAO{
 
-    private SQLiteDatabase sqLiteDatabase;
+//    private SQLiteDatabase sqLiteDatabase;
     private static final String TABLE_NAME = "food_consumed";
     private static final String TABLE_NAME_FOOD = "food";
     private static final String TABLE_NAME_FOOD_PK = "Name";
     private static final String[] COLUMN_NAMES = {"Id", "Mass", "Time", "FoodNameFK"};
 
-    public FoodConsumedDAOImpl(SQLiteDatabase sqLiteDatabase) {
-        this.sqLiteDatabase = sqLiteDatabase;
+    public FoodConsumedDAOImpl() {
+//        this.sqLiteDatabase = sqLiteDatabase;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class FoodConsumedDAOImpl implements FoodConsumedDAO{
     }
 
     @Override
-    public long insert(FoodConsumed foodConsumed) {
+    public long insert(FoodConsumed foodConsumed, SQLiteDatabase sqLiteDatabase) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAMES[1], foodConsumed.getMass());
         values.put(COLUMN_NAMES[3], foodConsumed.getFoodNameFK());
@@ -48,7 +48,7 @@ public class FoodConsumedDAOImpl implements FoodConsumedDAO{
     }
 
     @Override
-    public List<FoodConsumed> getAll() {
+    public List<FoodConsumed> getAll(SQLiteDatabase sqLiteDatabase) {
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, COLUMN_NAMES, null, null, null, null, null);
         List<FoodConsumed> foodConsumedList = new ArrayList<>();
         while(cursor.moveToNext()) {

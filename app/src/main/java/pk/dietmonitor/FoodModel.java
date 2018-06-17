@@ -1,9 +1,5 @@
 package pk.dietmonitor;
 
-import android.content.Context;
-
-import pk.dietmonitor.database.DatabaseHelper;
-
 public class FoodModel{
 
     public FoodModel() {

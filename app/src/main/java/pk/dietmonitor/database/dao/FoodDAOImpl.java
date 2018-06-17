@@ -11,12 +11,12 @@ import pk.dietmonitor.database.model.Food;
 
 public class FoodDAOImpl implements FoodDAO {
 
-    private SQLiteDatabase sqLiteDatabase;
+//    private SQLiteDatabase sqLiteDatabase;
     private static final String TABLE_NAME = "food";
     private static final String[] COLUMN_NAMES = {"Name", "Portion", "Energy", "Carbs", "Protein", "Fat"};
 
-    public FoodDAOImpl(SQLiteDatabase sqLiteDatabase) {
-        this.sqLiteDatabase = sqLiteDatabase;
+    public FoodDAOImpl() {
+//        this.sqLiteDatabase = sqLiteDatabase;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
-    public long insert(Food food) {
+    public long insert(Food food, SQLiteDatabase sqLiteDatabase) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAMES[0], food.getName());
         values.put(COLUMN_NAMES[1], food.getPortion());
@@ -53,7 +53,7 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
-    public List<Food> getAll() {
+    public List<Food> getAll(SQLiteDatabase sqLiteDatabase) {
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, COLUMN_NAMES, null, null, null, null, null);
         List<Food> foodList = new ArrayList<>();
         while(cursor.moveToNext()) {
@@ -76,7 +76,7 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
-    public List<Food> getFoodByName(String name) {
+    public List<Food> getFoodByName(String name, SQLiteDatabase sqLiteDatabase) {
         List<Food> foodList = new ArrayList<>();
 
         String[] selectionArgs = {"%" + name + "%"};

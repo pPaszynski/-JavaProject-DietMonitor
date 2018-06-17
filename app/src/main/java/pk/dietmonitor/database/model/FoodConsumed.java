@@ -40,4 +40,5 @@ public class FoodConsumed {
     public void setFoodNameFK(String foodNameFK) {
         this.foodNameFK = foodNameFK;
     }
+
 }

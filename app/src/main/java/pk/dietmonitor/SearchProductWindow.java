@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pk.dietmonitor.database.DBHelper;
-import pk.dietmonitor.database.DatabaseHelper;
 import pk.dietmonitor.database.model.Food;
 import pk.dietmonitor.recyclerview.RecyclerViewAdapter;
 
