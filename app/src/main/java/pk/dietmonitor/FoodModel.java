@@ -1,13 +1,17 @@
 package pk.dietmonitor;
 
-public class FoodModel {
+import android.content.Context;
+
+import pk.dietmonitor.database.DatabaseHelper;
+
+public class FoodModel{
 
     public FoodModel() {
         this.mass = 1;
     }
 
     public FoodModel(float m) {
-        this.mass = m / 100;
+        this.mass = m / 100.0f;
     }
 
     private String name;
@@ -26,15 +30,15 @@ public class FoodModel {
         return portion;
     }
 
-    public void setPortion(int portion) {
-        this.portion = portion;
+    public void setPortion(float portion) {
+        this.portion = portion * mass;
     }
 
     public float getEnergy() {
         return energy;
     }
 
-    public void setEnergy(int energy) {
+    public void setEnergy(float energy) {
         this.energy = energy * mass;
     }
 
@@ -42,7 +46,7 @@ public class FoodModel {
         return carbs;
     }
 
-    public void setCarbs(int carbs) {
+    public void setCarbs(float carbs) {
         this.carbs = carbs * mass;
     }
 
@@ -50,7 +54,7 @@ public class FoodModel {
         return protein;
     }
 
-    public void setProtein(int protein) {
+    public void setProtein(float protein) {
         this.protein = protein * mass;
     }
 
@@ -58,7 +62,7 @@ public class FoodModel {
         return fat;
     }
 
-    public void setFat(int fat) {
+    public void setFat(float fat) {
         this.fat = fat * mass;
     }
 }

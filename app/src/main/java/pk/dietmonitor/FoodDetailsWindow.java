@@ -1,6 +1,9 @@
 package pk.dietmonitor;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import pk.dietmonitor.database.DBHelper;
+import pk.dietmonitor.database.model.FoodConsumed;
+
 public class FoodDetailsWindow extends AppCompatActivity {
 
     TextView energy_value, carbs_value, protein_value, fat_value, check_text;
     EditText mass_value;
     Button food_item_add;
     String product_name;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,7 @@ public class FoodDetailsWindow extends AppCompatActivity {
         fat_value = (TextView) findViewById(R.id.food_item_fat_value);
         check_text = (TextView) findViewById(R.id.textView3);
         mass_value = (EditText) findViewById(R.id.food_item_mass_value);
+        dbHelper = DBHelper.getInstance(this);
 
         Intent intent = getIntent();
         getIncomingIntent();
@@ -36,8 +44,10 @@ public class FoodDetailsWindow extends AppCompatActivity {
     }
 
     public void getIncomingIntent() {
-        if(getIntent().hasExtra("energy_value") && getIntent().hasExtra("carbs_value") &&
-                getIntent().hasExtra("protein_value") && getIntent().hasExtra("fat_value")) {
+        if(getIntent().hasExtra("energy_value") &&
+                getIntent().hasExtra("carbs_value") &&
+                getIntent().hasExtra("protein_value") &&
+                getIntent().hasExtra("fat_value")) {
 
             String energy = getIntent().getStringExtra("energy_value");
             String carbs = getIntent().getStringExtra("carbs_value");
@@ -58,9 +68,31 @@ public class FoodDetailsWindow extends AppCompatActivity {
 
     public void addChosenProduct(View view) {
 
-        Float energy = getIntent().getFloatExtra("energy_value");
-        float a = Float.valueOf(mass_value.getText().toString());
-        FoodModel chosen_food = new FoodModel(4);
+        float mass = 0;
+        try{
+            mass = Float.valueOf(mass_value.getText().toString());
+        }catch(Exception e){
+            e.getMessage();
+        }
+        String product_name = getIntent().getStringExtra("name");
 
+        FoodConsumed foodConsumed = new FoodConsumed();
+        foodConsumed.setFoodNameFK(product_name);
+        foodConsumed.setMass(mass);
+        dbHelper.insertFoodConsumed(foodConsumed);
+//        FoodModel chosen_food = new FoodModel(mass);
+//        fillFoodModel(chosen_food, product_name);
+        check_text.setText(String.valueOf(getIntent().getStringExtra("energy_value")));
+    }
+
+    public void fillFoodModel(FoodModel food, String name){
+
+        food.setName(getIntent().getStringExtra("name"));
+        food.setPortion(Float.valueOf(getIntent().getStringExtra("portion_value")));
+        food.setEnergy(Float.valueOf(getIntent().getStringExtra("energy_value")));
+        food.setCarbs(Float.valueOf(getIntent().getStringExtra("carbs_value")));
+        food.setProtein(Float.valueOf(getIntent().getStringExtra("protein_value")));
+        food.setFat(Float.valueOf(getIntent().getStringExtra("fat_value")));
     }
 }
+

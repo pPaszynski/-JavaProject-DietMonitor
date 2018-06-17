@@ -13,7 +13,9 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import pk.dietmonitor.database.DBHelper;
 import pk.dietmonitor.database.DatabaseHelper;
+import pk.dietmonitor.database.model.Food;
 import pk.dietmonitor.recyclerview.RecyclerViewAdapter;
 
 public class SearchProductWindow extends AppCompatActivity
@@ -24,7 +26,7 @@ public class SearchProductWindow extends AppCompatActivity
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter adapter;
 
-    DatabaseHelper databaseHelper;
+    DBHelper dbHelper;
 
     List<String> suggestList = new ArrayList<>();
 
@@ -44,9 +46,9 @@ public class SearchProductWindow extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        databaseHelper = new DatabaseHelper(this);
+        dbHelper = DBHelper.getInstance(this);
 
-        suggestList = databaseHelper.getAllFoodNames();
+        suggestList = dbHelper.getAllFoodNames();
         materialSearchBar.setLastSuggestions(suggestList);
         materialSearchBar.setHint("Search");
         materialSearchBar.setCardViewElevation(10);
@@ -83,17 +85,17 @@ public class SearchProductWindow extends AppCompatActivity
             public void onButtonClicked(int buttonCode) { }
         });
 
-        adapter = new RecyclerViewAdapter(this, databaseHelper.getAllFood(), this);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getAllFood(), this);
         recyclerView.setAdapter(adapter);
     }
 
     private void resetSearch() {
-        adapter = new RecyclerViewAdapter(this, databaseHelper.getAllFood(), this);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getAllFood(), this);
         recyclerView.setAdapter(adapter);
     }
 
     private void startSearch(String text) {
-        adapter = new RecyclerViewAdapter(this, databaseHelper.getFoodByName(text), this);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getFoodByName(text), this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -101,14 +103,15 @@ public class SearchProductWindow extends AppCompatActivity
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(this, FoodDetailsWindow.class);
 
-        FoodModel clickedFood = adapter.getFoodList().get(clickedItemIndex);
+        Food clickedFood = adapter.getFoodList().get(clickedItemIndex);
 
         intent.putExtra("name", clickedFood.getName());
+        intent.putExtra("portion_value", String.valueOf(clickedFood.getPortion()));
         intent.putExtra("energy_value", String.valueOf(clickedFood.getEnergy()));
         intent.putExtra("carbs_value", String.valueOf(clickedFood.getCarbs()));
         intent.putExtra("protein_value", String.valueOf(clickedFood.getProtein()));
         intent.putExtra("fat_value", String.valueOf(clickedFood.getFat()));
-        clickedFood.getName();
+
         startActivity(intent);
     }
 }

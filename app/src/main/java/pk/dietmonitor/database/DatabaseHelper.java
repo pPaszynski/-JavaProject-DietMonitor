@@ -25,6 +25,9 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
     private int nameIndex, portionIndex, energyIndex, carbsIndex, proteinIndex, fatIndex;
 
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VER);
 
@@ -38,7 +41,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         qb.setTables(TABLE_NAME);
 
         Cursor cursor = qb.query(db, allColumnsNames, null, null, null, null, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             nameIndex = cursor.getColumnIndex("Name");
             portionIndex = cursor.getColumnIndex("Portion");
             energyIndex = cursor.getColumnIndex("Energy");
@@ -57,16 +60,15 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         food.setFat(cursor.getInt(fatIndex));
     }
 
-    private void addToFoodList(Cursor cursor, List<FoodModel> allFoodList)
-    {
-        if(cursor.moveToFirst()) {
+    private void addToFoodList(Cursor cursor, List<FoodModel> allFoodList) {
+        if (cursor.moveToFirst()) {
             do {
                 FoodModel food = new FoodModel();
 
                 setFoodProperties(food, cursor);
 
                 allFoodList.add(food);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
     }
 
@@ -93,13 +95,13 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         qb.setTables(TABLE_NAME);
 
-        Cursor cursor = qb.query(db, sqlSelect, null, null, null ,null, null);
+        Cursor cursor = qb.query(db, sqlSelect, null, null, null, null, null);
         List<String> allFoodNamesList = new ArrayList<>();
 
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 allFoodNamesList.add(cursor.getString(nameIndex));
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         return allFoodNamesList;
@@ -120,18 +122,5 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         return selectedFoodList;
     }
-
-    public void fillFoodModel(FoodModel food, String name){
-        SQLiteDatabase db = getReadableDatabase();
-        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-
-        qb.setTables(TABLE_NAME);
-        Cursor cursor = qb.query(db, allColumnsNames, name, null, null, null, null);
-        food.setName(cursor.getString(nameIndex));
-        food.setPortion(cursor.getInt(portionIndex));
-        food.setEnergy(cursor.getInt(energyIndex));
-        food.setCarbs(cursor.getInt(carbsIndex));
-        food.setProtein(cursor.getInt(proteinIndex));
-        food.setFat(cursor.getInt(fatIndex));
-    }
 }
+
