@@ -31,9 +31,9 @@ public class MainWindowTest {
 
     @Test
     public void btnFindProduct_onClick_ShouldLaunch_SearchProductWindow() {
-        assertNotNull("There is no button with id='button_find_produkt'", mainWindow.findViewById(R.id.button_find_produkt));
+        assertNotNull("There is no button with id='button_find_produkt'", mainWindow.findViewById(R.id.button_find_product));
 
-        onView(withId(R.id.button_find_produkt)).perform(click());
+        onView(withId(R.id.button_find_product)).perform(click());
 
         //int timeDelayIn_ms = 5000;
         Activity searchProductWindow = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);

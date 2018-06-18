@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DietMonitor</string>
     <string name="Button_Profile">Profile</string>
-    <string name="Button_Target">Target</string>
+    <string name="Button_Daily">Daily</string>
     <string name="Button_History">History</string>
     <string name="Button_Produkt">Find Product</string>
     <string name="Your_target">Your target is ...</string>

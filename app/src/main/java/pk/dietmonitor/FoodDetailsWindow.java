@@ -85,14 +85,14 @@ public class FoodDetailsWindow extends AppCompatActivity {
         check_text.setText(String.valueOf(getIntent().getStringExtra("energy_value")));
     }
 
-    public void fillFoodModel(FoodModel food, String name){
-
-        food.setName(getIntent().getStringExtra("name"));
-        food.setPortion(Float.valueOf(getIntent().getStringExtra("portion_value")));
-        food.setEnergy(Float.valueOf(getIntent().getStringExtra("energy_value")));
-        food.setCarbs(Float.valueOf(getIntent().getStringExtra("carbs_value")));
-        food.setProtein(Float.valueOf(getIntent().getStringExtra("protein_value")));
-        food.setFat(Float.valueOf(getIntent().getStringExtra("fat_value")));
-    }
+//    public void fillFoodModel(Food food, String name){
+//
+//        food.setName(getIntent().getStringExtra("name"));
+//        food.setPortion(Float.valueOf(getIntent().getStringExtra("portion_value")));
+//        food.setEnergy(Float.valueOf(getIntent().getStringExtra("energy_value")));
+//        food.setCarbs(Float.valueOf(getIntent().getStringExtra("carbs_value")));
+//        food.setProtein(Float.valueOf(getIntent().getStringExtra("protein_value")));
+//        food.setFat(Float.valueOf(getIntent().getStringExtra("fat_value")));
+//    }
 }
 

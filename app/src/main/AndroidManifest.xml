@@ -17,9 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchProductWindow" />
-        <activity android:name=".TargetWindow" />
+        <activity android:name=".DailyWindow" />
         <activity android:name=".FoodDetailsWindow" />
         <activity android:name=".ProfileWindow" />
+        <activity android:name=".HistoryWindow" />
     </application>
 
 </manifest>

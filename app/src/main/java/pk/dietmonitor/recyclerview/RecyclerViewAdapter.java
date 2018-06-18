@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import pk.dietmonitor.FoodModel;
 import pk.dietmonitor.R;
 import pk.dietmonitor.database.model.Food;
 
