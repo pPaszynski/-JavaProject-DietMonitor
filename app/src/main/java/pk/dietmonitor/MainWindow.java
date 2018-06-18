@@ -36,7 +36,7 @@ public class MainWindow extends AppCompatActivity {
         button_find_produkt = (Button) findViewById(R.id.button_find_produkt);
     }
 
-    public void searchProduct(View view) {
+    public void openSearchProductWindow(View view) {
         Intent intent = new Intent(this, SearchProductWindow.class);
 
         startActivity(intent);
@@ -44,6 +44,12 @@ public class MainWindow extends AppCompatActivity {
 
     public void openTargetWindow(View view) {
         Intent intent = new Intent(this, TargetWindow.class);
+
+        startActivity(intent);
+    }
+
+    public void openProfileWindow(View view) {
+        Intent intent = new Intent(this, ProfileWindow.class);
 
         startActivity(intent);
     }

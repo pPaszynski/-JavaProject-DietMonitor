@@ -12,7 +12,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="70dp"
-        android:onClick="searchProduct"
+        android:onClick="openSearchProductWindow"
         android:text="@string/Button_Produkt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_history" />
@@ -22,6 +22,7 @@
         android:layout_width="168dp"
         android:layout_height="43dp"
         android:layout_marginTop="70dp"
+        android:onClick="openProfileWindow"
         android:text="@string/Button_Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
