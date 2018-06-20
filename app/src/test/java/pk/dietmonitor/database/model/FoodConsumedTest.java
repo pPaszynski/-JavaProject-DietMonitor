@@ -22,7 +22,6 @@ public class FoodConsumedTest {
         orangePotato.setTime(time);
         orangePotato.setFoodNameFK("key");
 
-
         l.info("Id:    ".concat(String.valueOf(orangePotato.getId())));
         l.info("Mass: ".concat(String.valueOf(orangePotato.getMass())));
         l.info("Time:  ".concat(String.valueOf(orangePotato.getTime())));

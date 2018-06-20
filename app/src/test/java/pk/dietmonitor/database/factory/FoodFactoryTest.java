@@ -1,18 +1,19 @@
-package pk.dietmonitor.database.model;
+package pk.dietmonitor.database.factory;
 
 import org.junit.Test;
 
 import java.util.logging.Logger;
 
+import pk.dietmonitor.database.model.Food;
+
 import static org.junit.Assert.*;
 
-public class FoodTest {
-
+public class FoodFactoryTest {
     @Test
-    public void testFood() {
-        Food orangeTomato = new Food("Orange", 111, 18, 3, 1, 0);
-        Logger l = Logger.getLogger(Food.class.getName());
-        double delta = 0.01;
+    public void testFoodFactory() {
+        Food orangeTomato = FoodFactory.getFood("Orange Tomato", 111, 18, 3, 1, 0);
+        Logger l = Logger.getLogger(FoodFactory.class.getName());
+        float delta = 0.01f;
 
         l.info("Name:    ".concat(orangeTomato.getName()));
         l.info("Portion: ".concat(String.valueOf(orangeTomato.getPortion())));

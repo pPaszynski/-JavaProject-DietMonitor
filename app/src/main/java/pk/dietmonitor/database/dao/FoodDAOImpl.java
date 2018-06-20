@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import pk.dietmonitor.database.factory.FoodFactory;
 import pk.dietmonitor.database.model.Food;
 
 public class FoodDAOImpl implements FoodDAO {
@@ -14,6 +15,8 @@ public class FoodDAOImpl implements FoodDAO {
 //    private SQLiteDatabase sqLiteDatabase;
     private static final String TABLE_NAME = "food";
     private static final String[] COLUMN_NAMES = {"Name", "Portion", "Energy", "Carbs", "Protein", "Fat"};
+
+    private int nameIndex, portionIndex, energyIndex, carbsIndex, proteinIndex, fatIndex;
 
     public FoodDAOImpl() {
 //        this.sqLiteDatabase = sqLiteDatabase;
@@ -45,32 +48,41 @@ public class FoodDAOImpl implements FoodDAO {
         return sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
 
-
-
     @Override
     public String getTableName() {
         return TABLE_NAME;
+    }
+
+    public void setColumnIndexes(Cursor cursor) {
+        nameIndex = cursor.getColumnIndex(COLUMN_NAMES[0]);
+        portionIndex = cursor.getColumnIndex(COLUMN_NAMES[1]);
+        energyIndex = cursor.getColumnIndex(COLUMN_NAMES[2]);
+        carbsIndex = cursor.getColumnIndex(COLUMN_NAMES[3]);
+        proteinIndex = cursor.getColumnIndex(COLUMN_NAMES[4]);
+        fatIndex = cursor.getColumnIndex(COLUMN_NAMES[5]);
     }
 
     @Override
     public List<Food> getAll(SQLiteDatabase sqLiteDatabase) {
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, COLUMN_NAMES, null, null, null, null, null);
         List<Food> foodList = new ArrayList<>();
-        while(cursor.moveToNext()) {
-            Food food = new Food();
-            int nameColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[0]);
-            int portionColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[1]);
-            int energyColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[2]);
-            int carbsColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[3]);
-            int proteinColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[4]);
-            int fatColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[5]);
-            food.setName(cursor.getString(nameColumnIndex));
-            food.setPortion(cursor.getFloat(portionColumnIndex));
-            food.setEnergy(cursor.getFloat(energyColumnIndex));
-            food.setCarbs(cursor.getFloat(carbsColumnIndex));
-            food.setProtein(cursor.getFloat(proteinColumnIndex));
-            food.setFat(cursor.getFloat(fatColumnIndex));
-            foodList.add(food);
+
+        if(cursor.moveToFirst()) {
+            String name;
+            Float portion, energy, carbs, protein, fat;
+
+            setColumnIndexes(cursor);
+
+            while (cursor.moveToNext()) {
+                name = cursor.getString(nameIndex);
+                portion = cursor.getFloat(portionIndex);
+                energy = cursor.getFloat(energyIndex);
+                carbs = cursor.getFloat(carbsIndex);
+                protein = cursor.getFloat(proteinIndex);
+                fat = cursor.getFloat(fatIndex);
+
+                foodList.add(FoodFactory.getFood(name, portion, energy, carbs, protein, fat));
+            }
         }
         return foodList;
     }
@@ -83,21 +95,19 @@ public class FoodDAOImpl implements FoodDAO {
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, COLUMN_NAMES, "NAME LIKE ?", selectionArgs, null, null, null);
 
         if(cursor.moveToFirst()) {
+            Float portion, energy, carbs, protein, fat;
+
+            setColumnIndexes(cursor);
+
             do {
-                Food food = new Food();
-                int nameColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[0]);
-                int portionColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[1]);
-                int energyColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[2]);
-                int carbsColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[3]);
-                int proteinColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[4]);
-                int fatColumnIndex = cursor.getColumnIndex(COLUMN_NAMES[5]);
-                food.setName(cursor.getString(nameColumnIndex));
-                food.setPortion(cursor.getFloat(portionColumnIndex));
-                food.setEnergy(cursor.getFloat(energyColumnIndex));
-                food.setCarbs(cursor.getFloat(carbsColumnIndex));
-                food.setProtein(cursor.getFloat(proteinColumnIndex));
-                food.setFat(cursor.getFloat(fatColumnIndex));
-                foodList.add(food);
+                name = cursor.getString(nameIndex);
+                portion = cursor.getFloat(portionIndex);
+                energy = cursor.getFloat(energyIndex);
+                carbs = cursor.getFloat(carbsIndex);
+                protein = cursor.getFloat(proteinIndex);
+                fat = cursor.getFloat(fatIndex);
+
+                foodList.add(FoodFactory.getFood(name, portion, energy, carbs, protein, fat));
             } while(cursor.moveToNext());
         }
 
