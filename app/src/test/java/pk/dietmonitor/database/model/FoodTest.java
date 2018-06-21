@@ -10,7 +10,7 @@ public class FoodTest {
 
     @Test
     public void testFood() {
-        Food orangeTomato = new Food("Orange", 111, 18, 3, 1, 0);
+        Food orangeTomato = new Food("Orange Tomato", 111, 18, 3, 1, 0);
         Logger l = Logger.getLogger(Food.class.getName());
         double delta = 0.01;
 
